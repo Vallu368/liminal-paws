@@ -1,11 +1,11 @@
 using UnityEngine;
 
-public class DogController : MonoBehaviour
+public class PlayerController : MonoBehaviour
 {
     public float moveSpeed = 5f;
     public float jumpForce = 5f;
     public float gravity = 9.81f;
-    public Transform cameraTransform; 
+    public Transform cameraTransform;
     public float mouseSensitivity = 2f;
 
     private CharacterController controller;
@@ -16,7 +16,7 @@ public class DogController : MonoBehaviour
     void Start()
     {
         controller = GetComponent<CharacterController>();
-        Cursor.lockState = CursorLockMode.Locked; // Lock cursor for first-person look
+        Cursor.lockState = CursorLockMode.Locked; 
     }
 
     void Update()

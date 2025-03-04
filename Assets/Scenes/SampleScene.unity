@@ -265,8 +265,8 @@ GameObject:
   m_Component:
   - component: {fileID: 532224409}
   - component: {fileID: 532224412}
-  - component: {fileID: 532224411}
   - component: {fileID: 532224410}
+  - component: {fileID: 532224413}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -312,23 +312,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &532224411
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 532224408}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 68d49027650e91d428fdcc2da3dc5fa5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  moveSpeed: 5
-  jumpForce: 5
-  gravity: 9.81
-  cameraTransform: {fileID: 963194228}
-  mouseSensitivity: 2
 --- !u!143 &532224412
 CharacterController:
   m_ObjectHideFlags: 0
@@ -355,6 +338,23 @@ CharacterController:
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &532224413
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 532224408}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ca30e1ed59ec11445b3ebaa60dea9e62, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveSpeed: 5
+  jumpForce: 5
+  gravity: 9.81
+  cameraTransform: {fileID: 963194228}
+  mouseSensitivity: 2
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0
