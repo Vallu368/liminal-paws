@@ -3,8 +3,11 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     public float moveSpeed = 5f;
-    public float jumpForce = 5f;
-    public float gravity = 9.81f;
+    public float sprintSpeed = 10f;
+    public float jumpForce = 3f;
+    public float gravity = 20f;
+    public float jumpCooldown = 0.2f;
+    public float airControl = 0.5f;
     public Transform cameraTransform;
     public float mouseSensitivity = 2f;
 
@@ -12,6 +15,7 @@ public class PlayerController : MonoBehaviour
     private Vector3 moveDirection;
     private float verticalVelocity;
     private float xRotation = 0f;
+    public bool canJump = true;
 
     void Start()
     {
@@ -27,29 +31,43 @@ public class PlayerController : MonoBehaviour
 
     void HandleMovement()
     {
-        float horizontal = Input.GetAxisRaw("Horizontal");
-        float vertical = Input.GetAxisRaw("Vertical");
+        float horizontal = Input.GetAxis("Horizontal");
+        float vertical = Input.GetAxis("Vertical");
 
+        // Check for sprint input
+        float currentSpeed = Input.GetKey(KeyCode.LeftShift) ? sprintSpeed : moveSpeed;
         Vector3 move = transform.right * horizontal + transform.forward * vertical;
-        moveDirection = move * moveSpeed;
 
-        // Apply gravity
         if (controller.isGrounded)
         {
+            moveDirection = move * currentSpeed;
             verticalVelocity = -gravity * Time.deltaTime;
 
-            if (Input.GetButtonDown("Jump"))
+            if (Input.GetButtonDown("Jump") && canJump)
             {
-                verticalVelocity = jumpForce;
+                verticalVelocity = Mathf.Sqrt(2 * jumpForce * gravity); // More natural jump curve
+                canJump = false;
+                Invoke("ResetJump", jumpCooldown);
             }
         }
         else
         {
             verticalVelocity -= gravity * Time.deltaTime;
+            Vector3 airMove = move * currentSpeed * airControl;
+            moveDirection = new Vector3(
+                Mathf.Lerp(moveDirection.x, airMove.x, Time.deltaTime * 5f),
+                verticalVelocity,
+                Mathf.Lerp(moveDirection.z, airMove.z, Time.deltaTime * 5f)
+            );
         }
 
         moveDirection.y = verticalVelocity;
         controller.Move(moveDirection * Time.deltaTime);
+    }
+
+    void ResetJump()
+    {
+        canJump = true;
     }
 
     void HandleMouseLook()
